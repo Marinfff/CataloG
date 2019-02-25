@@ -20,7 +20,7 @@ class RendList extends Component {
     };
 
 //Обработчик формы поиска
-    searchHandler = (e) =>{
+    searchHandler = (e) => {
         this.setState({
             term: e.target.value
         });
@@ -32,7 +32,6 @@ class RendList extends Component {
             sortName = this.state.sortName,
             sortPrice = this.state.sortPrice,
             sortData = this.state.sortData;
-
         let
             catalog = this.props.catalog,
             arrow1 = '↑',
@@ -59,8 +58,8 @@ class RendList extends Component {
                     }
                 })
             }
-
         };
+
         //Функция для сортировки строк
         let sortString = (value, direction) => {
             if (direction === 1) {
@@ -89,7 +88,7 @@ class RendList extends Component {
         };
 
         let setId = (value) => {
-             this.setState({
+            this.setState({
                 sortId: value
             });
             console.log(value);
@@ -113,16 +112,16 @@ class RendList extends Component {
             console.log(value);
         };
 
-        let resetState = (value, value2, value3 , value4)=>{
+        let resetState = (value, value2, value3, value4) => {
             this.setState({
-                sortId: value,
+                sortId : value,
                 sortName : value2,
                 sortPrice : value3,
                 sortData : value4
             })
         };
 
-        let setStateItem = (value, value1, direction, item)=> {
+        let setStateItem = (value, value1, direction, item) => {
             switch (item) {
                 case null:
                     value();
@@ -138,7 +137,7 @@ class RendList extends Component {
 
         //Обработчики кнопок сортировки
 
-        let sortIdd = ()=>{
+        let sortIdd = () => {
             resetState(2, null, null, null);
             let direction = 1;
             setStateItem(() => {
