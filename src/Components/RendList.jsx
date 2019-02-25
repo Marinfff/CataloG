@@ -39,19 +39,19 @@ class RendList extends Component {
             arrow2 = '↓',
             arrow;
         //Функция для сортировки чисел и даты
-        var sortNumber = (value, direction) => {
-            if (direction == 1) {
+        let sortNumber = (value, direction) => {
+            if (direction === 1) {
                 catalog.sort(function (a, b) {
-                    if (value == 'data') {
+                    if (value === 'data') {
                         return new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
                             new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
                     } else {
                         return a[value] - b[value];
                     }
                 })
-            } else if (direction == -1) {
+            } else if (direction === -1) {
                 catalog.sort(function (b, a) {
-                    if (value == 'data') {
+                    if (value === 'data') {
                         return new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
                             new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
                     } else {
@@ -62,8 +62,8 @@ class RendList extends Component {
 
         };
         //Функция для сортировки строк
-        var sortString = (value, direction) => {
-            if (direction == 1) {
+        let sortString = (value, direction) => {
+            if (direction === 1) {
                 catalog.sort(function (a, b) {
                     let
                         nameA = a[value].toLowerCase(),
@@ -74,7 +74,7 @@ class RendList extends Component {
                         return 1;
                     return 0;
                 })
-            } else if (direction == -1) {
+            } else if (direction === -1) {
                 catalog.sort(function (b, a) {
                     let
                         nameA = a.name.toLowerCase(),
@@ -179,28 +179,28 @@ class RendList extends Component {
         };
 
         //Вызываем функции сортировки в зависимости от состояния кнопок
-        if (sortId == 1) {
+        if (sortId === 1) {
             sortNumber('id', 1);
             arrow = arrow1;
-        } else if (sortId == -1) {
+        } else if (sortId === -1) {
             sortNumber('id', -1);
             arrow = arrow2;
-        } else if (sortPrice == 1) {
+        } else if (sortPrice === 1) {
             sortNumber('price', 1);
             arrow = arrow1;
-        } else if (sortPrice == -1) {
+        } else if (sortPrice === -1) {
             sortNumber('price', -1);
             arrow = arrow2;
-        } else if (sortName == 1) {
+        } else if (sortName === 1) {
             sortString('name', 1);
             arrow = arrow1;
-        } else if (sortName == -1) {
+        } else if (sortName === -1) {
             sortString('name', -1);
             arrow = arrow2;
-        } else if (sortData == 1) {
+        } else if (sortData === 1) {
             sortNumber('data', 1);
             arrow = arrow1;
-        } else if (sortData == -1) {
+        } else if (sortData === -1) {
             sortNumber('data', -1);
             arrow = arrow2;
         }

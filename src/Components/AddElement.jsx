@@ -98,7 +98,7 @@ class AddElement extends Component {
                 alertType: "nisv"
             });
         }
-    }
+    };
 
     handleChangePrice = (e) => {
         let value = e.target.value;
