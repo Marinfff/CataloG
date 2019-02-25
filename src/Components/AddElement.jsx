@@ -86,7 +86,7 @@ class AddElement extends Component {
     }
 
     //Методы для валидации форм
-    handleChangeName(e) {
+    handleChangeName= (e) => {
         var value = e.target.value;
         if (value.match("^[a-zA-Z 1-9 ., -]*$") != null && value.length >= 3) {
             this.setState({
@@ -103,7 +103,7 @@ class AddElement extends Component {
         }
     }
 
-    handleChangePrice(e) {
+    handleChangePrice = (e) => {
         var value = e.target.value;
         if (value.match("^[0-9 .]*$") != null && value.length >= 1) {
             this.setState({

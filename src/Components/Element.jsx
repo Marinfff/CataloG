@@ -18,11 +18,11 @@ class Element extends Component {
     }
 
 //Обработчики кликов
-    handleClose() {
+    handleClose = () => {
         this.setState({show: false});
     }
 
-    handleShow() {
+    handleShow = () => {
         this.setState({show: true});
     }
 

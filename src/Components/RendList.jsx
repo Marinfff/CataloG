@@ -22,9 +22,9 @@ class RendList extends Component {
     };
 
 //Обработчик формы поиска
-    searchHandler(event) {
+    searchHandler = (e) =>{
         this.setState({
-            term: event.target.value
+            term: e.target.value
         });
     }
 
