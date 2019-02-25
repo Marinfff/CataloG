@@ -16,9 +16,6 @@ class AddElement extends Component {
             nameIsValid: false,
             priceIsValid: false
         };
-
-        this.handleChangeName = this.handleChangeName.bind(this);
-        this.handleChangePrice = this.handleChangePrice.bind(this);
     }
 
     Save = () => {
@@ -86,7 +83,7 @@ class AddElement extends Component {
     }
 
     //Методы для валидации форм
-    handleChangeName= (e) => {
+    handleChangeName = (e) => {
         var value = e.target.value;
         if (value.match("^[a-zA-Z 1-9 ., -]*$") != null && value.length >= 3) {
             this.setState({

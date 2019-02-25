@@ -12,9 +12,6 @@ class Element extends Component {
             alertType: "",
             show: false
         };
-
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
     }
 
 //Обработчики кликов

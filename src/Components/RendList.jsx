@@ -12,8 +12,6 @@ class RendList extends Component {
             sortData: null,
             term: ''
         };
-
-        this.searchHandler = this.searchHandler.bind(this);
     }
 
 //Коллбэк для получения id удаленного элемента из Element
@@ -221,8 +219,11 @@ class RendList extends Component {
             <div className="App">
                 <header>
                     <div className="form-group search">
-                        <input type="text" className="form-control" onChange={this.searchHandler} value={term}
-                               placeholder="Search"/>
+                        <input
+                            type="text" className="form-control"
+                            onChange={this.searchHandler} value={term}
+                            placeholder="Search"
+                        />
                     </div>
                     <div className="first">
                         <Button variant="light" onClick={sortIdd}>id {arrow}</Button>
