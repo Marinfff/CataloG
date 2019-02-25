@@ -1,0 +1,117 @@
+[{
+  "id": 1,
+  "name": "Intel",
+  "price": "10",
+  "data": "06.06.2005"
+},
+{
+  "id": 2,
+  "name": "Amd",
+  "price": "11",
+  "data": "06.06.2005"
+},
+{
+  "id": 3,
+  "name": "Nvidia",
+  "price": "12",
+  "data": "07.06.2005"
+},
+{
+  "id": 4,
+  "name": "Nintendo",
+  "price": "13",
+  "data": "06.06.2005"
+},
+{
+  "id": 5,
+  "name": "Xbox",
+  "price": "14",
+  "data": "08.06.2005"
+},{
+  "id": 6,
+  "name": "Intel",
+  "price": "10",
+  "data": "06.09.2005"
+},
+{
+  "id": 7,
+  "name": "Amd",
+  "price": "11",
+  "data": "10.06.2005"
+},
+{
+  "id": 8,
+  "name": "Nvidia",
+  "price": "12",
+  "data": "16.10.2005"
+},
+{
+  "id": 9,
+  "name": "Nintendo",
+  "price": "13",
+  "data": "06.06.2005"
+},
+{
+  "id": 10,
+  "name": "Xbox",
+  "price": "14",
+  "data": "06.06.2005"
+},{
+  "id": 11,
+  "name": "Intel",
+  "price": "15",
+  "data": "06.06.2005"
+},
+{
+  "id": 12,
+  "name": "Amd",
+  "price": "16",
+  "data": "06.06.2005"
+},
+{
+  "id": 13,
+  "name": "Nvidia",
+  "price": "17",
+  "data": "06.06.2005"
+},
+{
+  "id": 14,
+  "name": "Nintendo",
+  "price": "18",
+  "data": "06.06.2005"
+},
+{
+  "id": 15,
+  "name": "Xbox",
+  "price": "19",
+  "data": "06.06.2005"
+},{
+  "id": 16,
+  "name": "Intel",
+  "price": "20",
+  "data": "06.06.2005"
+},
+{
+  "id": 17,
+  "name": "Amd",
+  "price": "31",
+  "data": "06.06.2005"
+},
+{
+  "id": 18,
+  "name": "Nvidia",
+  "price": "42",
+  "data": "06.06.2005"
+},
+{
+  "id": 19,
+  "name": "Nintendo",
+  "price": "53",
+  "data": "06.06.2005"
+},
+{
+  "id": 20,
+  "name": "Xbox",
+  "price": "64",
+  "data": "06.06.2005"
+}]
