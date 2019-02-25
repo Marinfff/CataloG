@@ -17,17 +17,17 @@ class Element extends Component {
 //Обработчики кликов
     handleClose = () => {
         this.setState({show: false});
-    }
+    };
 
     handleShow = () => {
         this.setState({show: true});
-    }
+    };
 
     Update = () => {
         this.setState({
             edit: true
         });
-    }
+    };
 
     Delete = () => {
         let elementId = this.props.index;
@@ -38,7 +38,7 @@ class Element extends Component {
 
         //Тут должен быть ajax )
         this.props.GetDeleteId(elementId);
-    }
+    };
 
     Save = () => {
         let
@@ -59,7 +59,7 @@ class Element extends Component {
             //Алерт для успешной операции
             this.setState({
                 alert: true,
-                alertType: "succes",
+                alertType: "success",
                 edit: false
             });
 
@@ -81,13 +81,13 @@ class Element extends Component {
                 });
             }, 1300);
         }
-    }
+    };
 
     Cancel = () => {
         this.setState({
             edit: false
         });
-    }
+    };
 
     render() {
         let
@@ -95,21 +95,21 @@ class Element extends Component {
             alert;
 
         let
-            succes = <Alert variant="success">Saved !</Alert>,
+            success = <Alert variant="success">Saved !</Alert>,
             error = <Alert variant="danger">Error !</Alert>,
-            inValideForm = <Alert variant="danger">Name or price is invalid! Minimum 3 characters! <br/>
+            inValidForm = <Alert variant="danger">Name or price is invalid! Minimum 3 characters! <br/>
                 Only number for price!</Alert>;
         //Отрисовываем алерт в зависимости от кода ошибки
         if (this.state.alert)
             switch (this.state.alertType) {
                 case 'succes':
-                    alert = succes;
+                    alert = success;
                     break;
                 case 'error':
                     alert = error;
                     break;
                 case 'errValidation':
-                    alert = inValideForm;
+                    alert = inValidForm;
                     break;
             }
 

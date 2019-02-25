@@ -46,7 +46,7 @@ class AddElement extends Component {
             "name": name,
             "price": price,
             "data": data
-        }
+        };
         //Проверяем валидны ли формы перед сохранением
         if (
             this.state.nameIsValid &&
@@ -59,7 +59,7 @@ class AddElement extends Component {
             //Алерт для успешной операции
             this.setState({
                 alert: true,
-                alertType: "succes"
+                alertType: "success"
             });
 
             setTimeout(() => {
@@ -80,11 +80,11 @@ class AddElement extends Component {
             });
         }
 
-    }
+    };
 
     //Методы для валидации форм
     handleChangeName = (e) => {
-        var value = e.target.value;
+        let value = e.target.value;
         if (value.match("^[a-zA-Z 1-9 ., -]*$") != null && value.length >= 3) {
             this.setState({
                 name: value,
@@ -101,7 +101,7 @@ class AddElement extends Component {
     }
 
     handleChangePrice = (e) => {
-        var value = e.target.value;
+        let value = e.target.value;
         if (value.match("^[0-9 .]*$") != null && value.length >= 1) {
             this.setState({
                 price: value,
@@ -115,7 +115,7 @@ class AddElement extends Component {
                 alertType: "pisv"
             });
         }
-    }
+    };
 
 
     render() {
@@ -126,27 +126,27 @@ class AddElement extends Component {
 
         let
             buttonType = "secondary",
-            succes = <Alert variant="success">Saved !</Alert>,
+            success = <Alert variant="success">Saved !</Alert>,
             error = <Alert variant="danger">Error !</Alert>,
-            inValideName = <Alert variant="danger">Name is invalid! Minimum 3 characters!</Alert>,
-            inValidePrice = <Alert variant="danger">Price is invalid! Minimum 1 characters! Only number!</Alert>;
+            inValidName = <Alert variant="danger">Name is invalid! Minimum 3 characters!</Alert>,
+            inValidPrice = <Alert variant="danger">Price is invalid! Minimum 1 characters! Only number!</Alert>;
 
         //Отрисовываем алерт и цвет кнопки в зависимости от кода ошибки
         if (this.state.alert)
             switch (this.state.alertType) {
-                case 'succes':
-                    alert = succes;
+                case 'success':
+                    alert = success;
                     break;
                 case 'error':
                     alert = error;
                     break;
                 case 'nisv':
-                    alertName = inValideName;
+                    alertName = inValidName;
                     buttonType = 'secondary';
                     break;
                 case 'pisv':
-                    alertPrice = inValidePrice;
-                    buttonType = 'secondary'
+                    alertPrice = inValidPrice;
+                    buttonType = 'secondary';
                     break;
             }
 
