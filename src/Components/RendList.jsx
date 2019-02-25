@@ -64,12 +64,6 @@ class RendList extends Component {
 
         };
         //Функция для сортировки строк
-
-        var setId = (value) => {
-            this.setState({
-                sortId: value
-            })
-        };
         var sortString = (value, direction) => {
             if (direction == 1) {
                 catalog.sort(function (a, b) {
@@ -95,99 +89,95 @@ class RendList extends Component {
                 })
             }
         };
-        //Обработчики кнопок сортировки
-        var SortId = () => {
+
+        var setId = (value) => {
+             this.setState({
+                sortId: value
+            })
+            console.log(value);
+        };
+        var setName = (value) => {
             this.setState({
-                sortPrice: null,
-                sortName: null,
-                sortData: null
-            });
-            switch (sortId) {
-                case null:
-                    setId(1);
-                    break;
-                case 1:
-                    setId(-1);
-                    break;
-                case -1:
-                    setId(1);
-                    break;
-            }
+                sortName: value
+            })
+            console.log(value);
+        };
+        var setPrice = (value) => {
+            this.setState({
+                sortPrice: value
+            })
+            console.log(value);
+        };
+        var setData = (value) => {
+            this.setState({
+                sortData: value
+            })
+            console.log(value);
         };
 
-        var SortData = () => {
+        var resetState = (value, value2, value3 , value4)=>{
             this.setState({
-                sortPrice: null,
-                sortName: null,
-                sortId: null
-            });
-            switch (sortData) {
+                sortId: value,
+                sortName : value2,
+                sortPrice : value3,
+                sortData : value4
+            })
+        }
+
+        var setStateItem = (value, value1, direction, item)=> {
+            switch (item) {
                 case null:
-                    this.setState({
-                        sortData: 1
-                    });
+                    value();
                     break;
-                case 1:
-                    this.setState({
-                        sortData: -1
-                    });
+                case direction:
+                    value1();
                     break;
-                case -1:
-                    this.setState({
-                        sortData: 1
-                    });
+                case -direction:
+                    value();
                     break;
             }
+        }
+
+        //Обработчики кнопок сортировки
+
+        var sortIdd = ()=>{
+            resetState(2, null, null, null);
+            let direction = 1;
+            setStateItem(() => {
+                setId(direction)
+            },() => {
+                setId(-direction)
+            }, direction, sortId);
+        }
+
+        var SortName = () => {
+            resetState(null, 2, null, null);
+            let direction = 1;
+            setStateItem(() => {
+                setName(direction)
+            },() => {
+                setName(-direction)
+            }, direction, sortName);
         };
 
         var SortPrice = () => {
-            this.setState({
-                sortId: null,
-                sortName: null,
-                sortData: null
-            });
-            switch (sortPrice) {
-                case null:
-                    this.setState({
-                        sortPrice: 1
-                    });
-                    break;
-                case 1:
-                    this.setState({
-                        sortPrice: -1
-                    });
-                    break;
-                case -1:
-                    this.setState({
-                        sortPrice: 1
-                    });
-                    break;
-            }
+            resetState(null, null, 2, null);
+            let direction = 1;
+            setStateItem(() => {
+                setPrice(direction)
+            },() => {
+                setPrice(-direction)
+            }, direction, sortPrice);
         };
 
-        var SortName = () => {
-            this.setState({
-                sortId: null,
-                sortPrice: null,
-                sortData: null
-            });
-            switch (sortName) {
-                case null:
-                    this.setState({
-                        sortName: 1
-                    });
-                    break;
-                case 1:
-                    this.setState({
-                        sortName: -1
-                    });
-                    break;
-                case -1:
-                    this.setState({
-                        sortName: 1
-                    });
-                    break;
-            }
+        var SortData = () => {
+            resetState(null, null, null, 2);
+            let direction = 1;
+            setStateItem(() => {
+                setData(direction)
+            },() => {
+                setData(-direction)
+            }, direction, sortData);
         };
 
         //Вызываем функции сортировки в зависимости от состояния кнопок
@@ -235,7 +225,7 @@ class RendList extends Component {
                                placeholder="Search"/>
                     </div>
                     <div className="first">
-                        <Button variant="light" onClick={SortId}>id {arrow}</Button>
+                        <Button variant="light" onClick={sortIdd}>id {arrow}</Button>
                         <Button variant="light" onClick={SortName}>Name {arrow}</Button>
                         <Button variant="light" onClick={SortPrice}>Price {arrow}</Button>
                         <Button variant="light" onClick={SortData}> Data {arrow}</Button>
