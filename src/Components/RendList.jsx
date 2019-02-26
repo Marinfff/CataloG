@@ -15,7 +15,7 @@ class RendList extends Component {
     }
 
 //Коллбэк для получения id удаленного элемента из Element
-    GetDeleteId = (value) => {
+    GetIdForDelete = (value) => {
         this.props.DeleteElement(value);
     };
 
@@ -87,37 +87,12 @@ class RendList extends Component {
             }
         };
 
-        let setId = (value) => {
+        let setStates = (v, v2, v3, v4) => {
             this.setState({
-                sortId: value
-            });
-            console.log(value);
-        };
-        let setName = (value) => {
-            this.setState({
-                sortName: value
-            });
-            console.log(value);
-        };
-        let setPrice = (value) => {
-            this.setState({
-                sortPrice: value
-            });
-            console.log(value);
-        };
-        let setData = (value) => {
-            this.setState({
-                sortData: value
-            });
-            console.log(value);
-        };
-
-        let resetState = (value, value2, value3, value4) => {
-            this.setState({
-                sortId : value,
-                sortName : value2,
-                sortPrice : value3,
-                sortData : value4
+                sortId: v,
+                sortName: v2,
+                sortPrice: v3,
+                sortData: v4
             })
         };
 
@@ -136,44 +111,39 @@ class RendList extends Component {
         };
 
         //Обработчики кнопок сортировки
-
         let sortIdd = () => {
-            resetState(2, null, null, null);
             let direction = 1;
             setStateItem(() => {
-                setId(direction)
-            },() => {
-                setId(-direction)
+                setStates(direction, null, null, null);
+            }, () => {
+                setStates(-direction, null, null, null);
             }, direction, sortId);
         };
 
         let SortName = () => {
-            resetState(null, 2, null, null);
             let direction = 1;
             setStateItem(() => {
-                setName(direction)
-            },() => {
-                setName(-direction)
+                setStates(null, direction, null, null);
+            }, () => {
+                setStates(null, -direction, null, null);
             }, direction, sortName);
         };
 
         let SortPrice = () => {
-            resetState(null, null, 2, null);
             let direction = 1;
             setStateItem(() => {
-                setPrice(direction)
-            },() => {
-                setPrice(-direction)
+                setStates(null, null, direction, null);
+            }, () => {
+                setStates(null, null, -direction, null);
             }, direction, sortPrice);
         };
 
         let SortData = () => {
-            resetState(null, null, null, 2);
             let direction = 1;
             setStateItem(() => {
-                setData(direction)
-            },() => {
-                setData(-direction)
+                setStates(null, null, null, direction);
+            }, () => {
+                setStates(null, null, null, -direction);
             }, direction, sortData);
         };
 
@@ -238,7 +208,7 @@ class RendList extends Component {
                             <Element
                                 value={value}
                                 index={index}
-                                GetDeleteId={this.GetDeleteId}
+                                GetIdForDelete={this.GetIdForDelete}
                             />
                         );
                     })}

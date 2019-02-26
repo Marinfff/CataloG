@@ -36,15 +36,9 @@ class App extends Component {
     };
 
     setButton = () => {
-        if (this.state.add) {
-            this.setState({
-                add: false
-            })
-        } else {
-            this.setState({
-                add: true
-            })
-        }
+        this.setState({
+            add: !this.state.add
+        });
     };
 
     render() {
@@ -55,12 +49,10 @@ class App extends Component {
             catalog = this.state.catalog;
         //Удаление элемента из массива
         if (this.state.id !== null) {
-            if (this.state.id !== 0) {
-                catalog = catalog.splice(this.state.id, 1);
-                this.setState({
-                    id: null
-                });
-            }
+            catalog = catalog.splice(this.state.id, 1);
+            this.setState({
+                id: null
+            });
         }
         //Добавление элемента в массив
         if (this.state.newElement !== null) {

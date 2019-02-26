@@ -18,8 +18,7 @@ class AddElement extends Component {
         };
     }
 
-    Save = () => {
-        //Получаем текущую дату
+    componentDidMount() {
         let
             data = new Date(),
             dd = data.getDate(),
@@ -35,8 +34,16 @@ class AddElement extends Component {
         }
 
         data = dd + '.' + mm + '.' + yyyy;
+
+         this.setState({
+            data : data
+        });
+    }
+
+    Save = () => {
         //Получаем данные из форм
         let
+            data = this.state.data,
             id = this.props.id + 1,
             name = this.state.name,
             price = this.state.price;
