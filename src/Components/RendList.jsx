@@ -39,45 +39,38 @@ class RendList extends Component {
             arrow;
         //Функция для сортировки чисел и даты
         let sortNumber = (value, direction) => {
-            if (direction === 1) {
-                catalog.sort(function (a, b) {
-                    if (value === 'data') {
-                        return new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
-                            new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
-                    } else {
-                        return a[value] - b[value];
-                    }
-                })
-            } else if (direction === -1) {
                 catalog.sort(function (b, a) {
                     if (value === 'data') {
-                        return new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
-                            new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+                        if(direction === 1){
+                            return new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
+                                new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+                        }else{
+                            return new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
+                                new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+                        }
                     } else {
-                        return a[value] - b[value];
+                        if(direction === 1){
+                            return a[value] - b[value];
+                        }else if(direction === -1){
+                            return b[value] - a[value];
+                        }
                     }
                 })
-            }
-        };
+            };
+
 
         //Функция для сортировки строк
         let sortString = (value, direction) => {
             if (direction === 1) {
                 catalog.sort(function (a, b) {
-                    let
-                        nameA = a[value].toLowerCase(),
+                    let nameA,nameB;
+                    if(direction === 1){
+                        nameA = a[value].toLowerCase();
                         nameB = b[value].toLowerCase();
-                    if (nameA < nameB)
-                        return -1;
-                    if (nameA > nameB)
-                        return 1;
-                    return 0;
-                })
-            } else if (direction === -1) {
-                catalog.sort(function (b, a) {
-                    let
-                        nameA = a.name.toLowerCase(),
-                        nameB = b.name.toLowerCase();
+                    }else if(direction === -1){
+                        nameA = b[value].toLowerCase();
+                        nameB = a[value].toLowerCase();
+                    }
                     if (nameA < nameB)
                         return -1;
                     if (nameA > nameB)
