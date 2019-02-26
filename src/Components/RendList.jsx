@@ -108,71 +108,55 @@ class RendList extends Component {
                     value();
                     break;
             }
+            sorttt(sortId, 'id');
+            sortttt(sortName, 'name');
+            sorttt(sortPrice, 'price');
+            sorttt(sortData, 'data');
         };
 
+        let sorttt = (value, value1) =>{
+            if (value === 1) {
+                sortNumber(value1, 1);
+                arrow = arrow1;
+            } else if (value === -1) {
+                sortNumber(value1, -1);
+                arrow = arrow2;
+            }
+        };
+
+        let sortttt = (value, value1) =>{
+            if (value === 1) {
+                sortString(value1, 1);
+                arrow = arrow1;
+            } else if (value === -1) {
+                sortString(value1, -1);
+                arrow = arrow2;
+            }
+        };
+
+        let sortItems = (v,v2,v3,v4, v5)=> {
+            setStateItem(() => {
+                setStates(v, v2, v3, v4);
+            }, () => {
+                setStates(-v, -v2, -v3, -v4);
+            }, 1, v5);
+        }
         //Обработчики кнопок сортировки
         let sortIdd = () => {
-            let direction = 1;
-            setStateItem(() => {
-                setStates(direction, null, null, null);
-            }, () => {
-                setStates(-direction, null, null, null);
-            }, direction, sortId);
+            sortItems(1, null, null, null, sortId);
         };
 
         let SortName = () => {
-            let direction = 1;
-            setStateItem(() => {
-                setStates(null, direction, null, null);
-            }, () => {
-                setStates(null, -direction, null, null);
-            }, direction, sortName);
+            sortItems(null, 1, null, null , sortName);
         };
 
         let SortPrice = () => {
-            let direction = 1;
-            setStateItem(() => {
-                setStates(null, null, direction, null);
-            }, () => {
-                setStates(null, null, -direction, null);
-            }, direction, sortPrice);
+            sortItems(null, null, 1, null, sortPrice);
         };
 
         let SortData = () => {
-            let direction = 1;
-            setStateItem(() => {
-                setStates(null, null, null, direction);
-            }, () => {
-                setStates(null, null, null, -direction);
-            }, direction, sortData);
+            sortItems(null, null, null, 1, sortData);
         };
-
-        //Вызываем функции сортировки в зависимости от состояния кнопок
-        if (sortId === 1) {
-            sortNumber('id', 1);
-            arrow = arrow1;
-        } else if (sortId === -1) {
-            sortNumber('id', -1);
-            arrow = arrow2;
-        } else if (sortPrice === 1) {
-            sortNumber('price', 1);
-            arrow = arrow1;
-        } else if (sortPrice === -1) {
-            sortNumber('price', -1);
-            arrow = arrow2;
-        } else if (sortName === 1) {
-            sortString('name', 1);
-            arrow = arrow1;
-        } else if (sortName === -1) {
-            sortString('name', -1);
-            arrow = arrow2;
-        } else if (sortData === 1) {
-            sortNumber('data', 1);
-            arrow = arrow1;
-        } else if (sortData === -1) {
-            sortNumber('data', -1);
-            arrow = arrow2;
-        }
 
         let term = this.state.term;
         //Функция поиска по name, price и data
