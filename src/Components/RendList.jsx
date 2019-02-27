@@ -1,22 +1,21 @@
 import React, {Component} from 'react';
 import Element from './Element'
 import Button from 'react-bootstrap/Button';
-import {forEach} from "react-bootstrap/es/utils/ElementChildren";
 
 class RendList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            sortId: null,
-            sortName: null,
-            sortPrice: null,
-            sortData: null,
+            sortId: false,
+            sortName: false,
+            sortPrice: false,
+            sortData: false,
             term: ''
         };
     }
 
 //Коллбэк для получения id удаленного элемента из Element
-    GetIdForDelete = (value) => {
+    getIdForDelete = (value) => {
         this.props.DeleteElement(value);
     };
 
@@ -28,109 +27,85 @@ class RendList extends Component {
     };
 
     render() {
-        let
-            sortId = this.state.sortId,
-            sortName = this.state.sortName,
-            sortPrice = this.state.sortPrice,
-            sortData = this.state.sortData;
-        let
-            catalog = this.props.catalog,
-            arrow1 = '↑',
-            arrow2 = '↓',
-            arrow;
+        let catalog = this.props.catalog;
         //Функция для сортировки чисел и даты
-        let sortNumber = (value, direction) => {
-                catalog.sort(function (b, a) {
-                    if (value === 'data') {
-                        if(direction === 1){
-                            return new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
-                                new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
-                        }else{
-                            return new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
-                                new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
-                        }
+        let sortNumber = (direction, value) => {
+            catalog.sort(function (b, a) {
+                if (value === 'data') {
+                    if (direction) {
+                        return new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
+                            new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
                     } else {
-                        if(direction === 1){
-                            return a[value] - b[value];
-                        }else if(direction === -1){
-                            return b[value] - a[value];
-                        }
+                        return new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
+                            new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
                     }
-                })
-            };
-
+                } else {
+                    if (direction) {
+                        return a[value] - b[value];
+                    } else {
+                        return b[value] - a[value];
+                    }
+                }
+            })
+        };
 
         //Функция для сортировки строк
-        let sortString = (value, direction) => {
-                catalog.sort(function (a, b) {
-                    let
-                        nameA = a[value].toLowerCase(),
-                        nameB = b[value].toLowerCase();
-                    if(direction === -1){
-                        nameA = b[value].toLowerCase();
-                        nameB = a[value].toLowerCase();
-                    }
-                    if (nameA < nameB)
-                        return -1;
-                    if (nameA > nameB)
-                        return 1;
-                    return 0;
-                })
+        let sortString = (direction, value) => {
+            catalog.sort(function (a, b) {
+                let
+                    nameA = a[value].toLowerCase(),
+                    nameB = b[value].toLowerCase();
+                if (direction) {
+                    nameA = b[value].toLowerCase();
+                    nameB = a[value].toLowerCase();
+                }
+
+                if (nameA < nameB)
+                    return -1;
+                if (nameA > nameB)
+                    return 1;
+                return 0;
+            })
         };
 
-        //item, value
-        let setStates = (item, value) => {
-            let obj = {};
-            obj[item] = value;
-            forEach()
+        let setStates = (value, direction) => {
+            let obj;
+            switch (value) {
+                case 'Id' :
+                    obj = {
+                        SortId: !direction
+                    };
+                    break;
+                case 'name' :
+                    obj = {
+                        sortName: !direction
+                    };
+                    break;
+                case 'price' :
+                    obj = {
+                        sortPrice: !direction
+                    };
+                    break;
+                case 'data' :
+                    obj = {
+                        sortData: !direction
+                    };
+                    break;
+
+            }
+
             this.setState(obj);
-        };
 
-        let setStateItem = (value, value1, direction, item) => {
-            switch (item) {
-                case -null:
-                    value();
-                    break;
-                case null:
-                    value1();
-                    break;
-                case direction:
-                    value1();
-                    break;
-                case -direction:
-                    value();
-                    break;
-            }
-            console.log(item);
-            getSortNum(sortId, 'id');
-            getSortStr(sortName, 'name');
-            getSortNum(sortPrice, 'price');
-            getSortNum(sortData, 'data');
-        };
-
-        let getSortNum = (value, value1) =>{
-            if (value === 1) {
-                sortNumber(value1, 1);
-                arrow = arrow1;
-            } else if (value === -1) {
-                sortNumber(value1, -1);
-                arrow = arrow2;
+            if (value === 'name') {
+                sortString(direction, value);
+            } else {
+                sortNumber(direction, value);
             }
         };
 
-        let getSortStr = (value, value1) =>{
-            if (value === 1) {
-                sortString(value1, 1);
-                arrow = arrow1;
-            } else if (value === -1) {
-                sortString(value1, -1);
-                arrow = arrow2;
-            }
-        };
-
-        //Обработчики кнопок сортировки
+        //Обработчик кнопок сортировки
         let Sort = (e) => {
-            setStates(e.target.name, 1);
+            setStates(e.target.id, this.state[e.target.name]);
         };
 
         let term = this.state.term;
@@ -143,7 +118,6 @@ class RendList extends Component {
             }
         };
 
-
         return (
             <div className="App">
                 <header>
@@ -155,10 +129,10 @@ class RendList extends Component {
                         />
                     </div>
                     <div className="first">
-                        <Button variant="light" name="id" onClick={Sort}>id {arrow}</Button>
-                        <Button variant="light" name="name" onClick={Sort}>Name {arrow}</Button>
-                        <Button variant="light" name="price" onClick={Sort}>Price {arrow}</Button>
-                        <Button variant="light" name="data" onClick={Sort}> Data {arrow}</Button>
+                        <Button variant="light" id='Id' name='sortId' onClick={Sort}>id </Button>
+                        <Button variant="light" id='name' name='sortName' onClick={Sort}>Name</Button>
+                        <Button variant="light" id='price' name='sortPrice' onClick={Sort}>Price </Button>
+                        <Button variant="light" id='data' name='sortData' onClick={Sort}> Data</Button>
                         <div>Action</div>
                     </div>
                 </header>
@@ -168,7 +142,7 @@ class RendList extends Component {
                             <Element
                                 value={value}
                                 index={index}
-                                GetIdForDelete={this.GetIdForDelete}
+                                getIdForDelete={this.getIdForDelete}
                             />
                         );
                     })}

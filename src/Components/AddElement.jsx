@@ -40,7 +40,7 @@ class AddElement extends Component {
         });
     }
 
-    Save = () => {
+    saveNewElement = () => {
         //Получаем данные из форм
         let
             data = this.state.data,
@@ -187,7 +187,7 @@ class AddElement extends Component {
                         />
                         {alertPrice}
                     </div>
-                    <Button variant={buttonType} className="save" onClick={this.Save}>Save</Button>
+                    <Button variant={buttonType} className="save" onClick={this.saveNewElement}>Save</Button>
                 </div>
                 {alert}
             </>

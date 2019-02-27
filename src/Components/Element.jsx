@@ -23,13 +23,13 @@ class Element extends Component {
         this.setState({show: true});
     };
 
-    Update = () => {
+    setUpdateState = () => {
         this.setState({
             edit: true
         });
     };
 
-    Delete = () => {
+    deleteElement = () => {
         let elementId = this.props.index;
 
         this.setState({
@@ -37,10 +37,10 @@ class Element extends Component {
         });
 
         //Тут должен быть ajax )
-        this.props.GetDeleteId(elementId);
+        this.props.getDeleteId(elementId);
     };
 
-    Save = () => {
+    saveUpdate = () => {
         let
             newName = this.refs.updateName.value,
             newPrice = this.refs.updatePrice.value,
@@ -83,7 +83,7 @@ class Element extends Component {
         }
     };
 
-    Cancel = () => {
+    cancelEdit = () => {
         this.setState({
             edit: false
         });
@@ -123,7 +123,7 @@ class Element extends Component {
                     <div>{value.price}</div>
                     <div>{value.data}</div>
 
-                    <Button variant="warning" onClick={this.Update}>Update</Button>
+                    <Button variant="warning" onClick={this.setUpdateState}>Update</Button>
                     <Button variant="danger" onClick={this.handleShow}>Delete</Button>
 
                     <Modal show={this.state.show} onHide={this.handleClose}>
@@ -140,7 +140,7 @@ class Element extends Component {
                             <Button variant="secondary" onClick={this.handleClose}>
                                 Close
                             </Button>
-                            <Button variant="danger" onClick={this.Delete}>
+                            <Button variant="danger" onClick={this.deleteElement}>
                                 Delete
                             </Button>
                         </Modal.Footer>
@@ -159,8 +159,8 @@ class Element extends Component {
                     <input className="input form-control" ref="updatePrice" defaultValue={value.price}/>
                     <div>{value.data}</div>
 
-                    <Button variant="warning" onClick={this.Save}>Save</Button>
-                    <Button variant="danger" onClick={this.Cancel}>Cancel</Button>
+                    <Button variant="warning" onClick={this.saveUpdate}>Save</Button>
+                    <Button variant="danger" onClick={this.cancelEdit}>Cancel</Button>
 
                     {alert}
                 </div>

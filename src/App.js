@@ -22,14 +22,14 @@ class App extends Component {
     }
 
     //Коллбэк для получения id удаленного элемента из RendList
-    DeleteElement = (value) => {
+    deleteElement = (value) => {
         this.setState({
             id: value
         })
     };
 
     //Коллбэк для получения нового элемента из RendList
-    AddElement = (value) => {
+    addElement = (value) => {
         this.setState({
             newElement: value
         })
@@ -76,12 +76,12 @@ class App extends Component {
                             <RendList {...props}
                                       newElement = {this.state.newElement}
                                       catalog = {catalog}
-                                      DeleteElement = {this.DeleteElement}
+                                      DeleteElement = {this.deleteElement}
                             />
                         )}/>
                         <Route exact path='/add' render={(props) => (
                             <AddElement {...props}
-                                        AddElement = {this.AddElement}
+                                        AddElement = {this.addElement}
                                         id = {catalog.length}
                             />
                         )}/>
