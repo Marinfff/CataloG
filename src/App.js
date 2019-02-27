@@ -76,12 +76,12 @@ class App extends Component {
                             <RendList {...props}
                                       newElement = {this.state.newElement}
                                       catalog = {catalog}
-                                      DeleteElement = {this.deleteElement}
+                                      deleteElement = {this.deleteElement}
                             />
                         )}/>
                         <Route exact path='/add' render={(props) => (
                             <AddElement {...props}
-                                        AddElement = {this.addElement}
+                                        addElement = {this.addElement}
                                         id = {catalog.length}
                             />
                         )}/>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Element from './Element'
+import Element from './Element';
 import Button from 'react-bootstrap/Button';
 
 class RendList extends Component {
@@ -16,7 +16,7 @@ class RendList extends Component {
 
 //Коллбэк для получения id удаленного элемента из Element
     getIdForDelete = (value) => {
-        this.props.DeleteElement(value);
+        this.props.deleteElement(value);
     };
 
 //Обработчик формы поиска
@@ -28,6 +28,7 @@ class RendList extends Component {
 
     render() {
         let catalog = this.props.catalog;
+        let term = this.state.term;
         //Функция для сортировки чисел и даты
         let sortNumber = (direction, value) => {
             catalog.sort(function (b, a) {
@@ -68,12 +69,13 @@ class RendList extends Component {
             })
         };
 
+        //Функция для изменения стейтов и вызова фунуции сортировки
         let setStates = (value, direction) => {
             let obj;
             switch (value) {
-                case 'Id' :
+                case 'id' :
                     obj = {
-                        SortId: !direction
+                        sortId: !direction
                     };
                     break;
                 case 'name' :
@@ -108,13 +110,12 @@ class RendList extends Component {
             setStates(e.target.id, this.state[e.target.name]);
         };
 
-        let term = this.state.term;
         //Функция поиска по name, price и data
         let searchingFor = (term) => {
             return (value) => {
                 return value.name.toLowerCase().includes(term.toLowerCase()) ||
                     value.price.includes(term) ||
-                    value.data.includes(term);
+                    value.data.includes(term) ;
             }
         };
 
@@ -129,7 +130,7 @@ class RendList extends Component {
                         />
                     </div>
                     <div className="first">
-                        <Button variant="light" id='Id' name='sortId' onClick={Sort}>id </Button>
+                        <Button variant="light" id='id' name='sortId' onClick={Sort}>id </Button>
                         <Button variant="light" id='name' name='sortName' onClick={Sort}>Name</Button>
                         <Button variant="light" id='price' name='sortPrice' onClick={Sort}>Price </Button>
                         <Button variant="light" id='data' name='sortData' onClick={Sort}> Data</Button>

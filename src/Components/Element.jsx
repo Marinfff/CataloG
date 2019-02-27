@@ -10,17 +10,17 @@ class Element extends Component {
             edit: false,
             alert: false,
             alertType: "",
-            show: false
+            showModal: false
         };
     }
 
 //Обработчики кликов
     handleClose = () => {
-        this.setState({show: false});
+        this.setState({showModal: false});
     };
 
     handleShow = () => {
-        this.setState({show: true});
+        this.setState({showModal: true});
     };
 
     setUpdateState = () => {
@@ -159,8 +159,8 @@ class Element extends Component {
                     <input className="input form-control" ref="updatePrice" defaultValue={value.price}/>
                     <div>{value.data}</div>
 
-                    <Button variant="warning" onClick={this.saveUpdate}>Save</Button>
-                    <Button variant="danger" onClick={this.cancelEdit}>Cancel</Button>
+                    <Button variant="outline-success" onClick={this.saveUpdate}>Save</Button>
+                    <Button variant="outline-danger" onClick={this.cancelEdit}>Cancel</Button>
 
                     {alert}
                 </div>
