@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Element from './Element'
 import Button from 'react-bootstrap/Button';
+import {forEach} from "react-bootstrap/es/utils/ElementChildren";
 
 class RendList extends Component {
     constructor(props) {
@@ -61,13 +62,11 @@ class RendList extends Component {
 
         //Функция для сортировки строк
         let sortString = (value, direction) => {
-            if (direction === 1) {
                 catalog.sort(function (a, b) {
-                    let nameA,nameB;
-                    if(direction === 1){
-                        nameA = a[value].toLowerCase();
+                    let
+                        nameA = a[value].toLowerCase(),
                         nameB = b[value].toLowerCase();
-                    }else if(direction === -1){
+                    if(direction === -1){
                         nameA = b[value].toLowerCase();
                         nameB = a[value].toLowerCase();
                     }
@@ -77,22 +76,23 @@ class RendList extends Component {
                         return 1;
                     return 0;
                 })
-            }
         };
 
-        let setStates = (v, v2, v3, v4) => {
-            this.setState({
-                sortId: v,
-                sortName: v2,
-                sortPrice: v3,
-                sortData: v4
-            })
+        //item, value
+        let setStates = (item, value) => {
+            let obj = {};
+            obj[item] = value;
+            forEach()
+            this.setState(obj);
         };
 
         let setStateItem = (value, value1, direction, item) => {
             switch (item) {
-                case null:
+                case -null:
                     value();
+                    break;
+                case null:
+                    value1();
                     break;
                 case direction:
                     value1();
@@ -101,13 +101,14 @@ class RendList extends Component {
                     value();
                     break;
             }
-            sorttt(sortId, 'id');
-            sortttt(sortName, 'name');
-            sorttt(sortPrice, 'price');
-            sorttt(sortData, 'data');
+            console.log(item);
+            getSortNum(sortId, 'id');
+            getSortStr(sortName, 'name');
+            getSortNum(sortPrice, 'price');
+            getSortNum(sortData, 'data');
         };
 
-        let sorttt = (value, value1) =>{
+        let getSortNum = (value, value1) =>{
             if (value === 1) {
                 sortNumber(value1, 1);
                 arrow = arrow1;
@@ -117,7 +118,7 @@ class RendList extends Component {
             }
         };
 
-        let sortttt = (value, value1) =>{
+        let getSortStr = (value, value1) =>{
             if (value === 1) {
                 sortString(value1, 1);
                 arrow = arrow1;
@@ -127,28 +128,9 @@ class RendList extends Component {
             }
         };
 
-        let sortItems = (v,v2,v3,v4, v5)=> {
-            setStateItem(() => {
-                setStates(v, v2, v3, v4);
-            }, () => {
-                setStates(-v, -v2, -v3, -v4);
-            }, 1, v5);
-        }
         //Обработчики кнопок сортировки
-        let sortIdd = () => {
-            sortItems(1, null, null, null, sortId);
-        };
-
-        let SortName = () => {
-            sortItems(null, 1, null, null , sortName);
-        };
-
-        let SortPrice = () => {
-            sortItems(null, null, 1, null, sortPrice);
-        };
-
-        let SortData = () => {
-            sortItems(null, null, null, 1, sortData);
+        let Sort = (e) => {
+            setStates(e.target.name, 1);
         };
 
         let term = this.state.term;
@@ -161,6 +143,7 @@ class RendList extends Component {
             }
         };
 
+
         return (
             <div className="App">
                 <header>
@@ -172,10 +155,10 @@ class RendList extends Component {
                         />
                     </div>
                     <div className="first">
-                        <Button variant="light" onClick={sortIdd}>id {arrow}</Button>
-                        <Button variant="light" onClick={SortName}>Name {arrow}</Button>
-                        <Button variant="light" onClick={SortPrice}>Price {arrow}</Button>
-                        <Button variant="light" onClick={SortData}> Data {arrow}</Button>
+                        <Button variant="light" name="id" onClick={Sort}>id {arrow}</Button>
+                        <Button variant="light" name="name" onClick={Sort}>Name {arrow}</Button>
+                        <Button variant="light" name="price" onClick={Sort}>Price {arrow}</Button>
+                        <Button variant="light" name="data" onClick={Sort}> Data {arrow}</Button>
                         <div>Action</div>
                     </div>
                 </header>
