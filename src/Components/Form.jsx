@@ -57,41 +57,23 @@ class Form extends Component {
     };
 
     render() {
-        let type = this.props.type;
         let defaultValue = this.props.value;
         let placeHolder = this.props.plholder;
 
-        if (type === 'text') {
-            return (
-                <>
-                    <div>
-                        <div className="form-group">
-                            <input className="form-control"
-                                   defaultValue={defaultValue}
-                                   placeholder={placeHolder}
-                                   onChange={this.handleChangeForm}
-                            />
-                        </div>
-                        {(this.state.alert !== null) &&
-                        <div className="alert alert-danger" role="alert">{this.state.alert}</div>}
-                    </div>
-                </>
-            );
-        } else if (type === 'number') {
-            return (
-                <div>
-                    <div className="form-group">
-                        <input className="form-control"
-                               defaultValue={defaultValue}
-                               placeholder={placeHolder}
-                               onChange={this.handleChangeForm}
-                        />
-                    </div>
-                    {(this.state.alert !== null) &&
-                    <div className="alert alert-danger" role="alert">{this.state.alert}</div>}
+        return (
+            <>
+                <div className="form-group">
+                    <input
+                        className="form-control"
+                        defaultValue={defaultValue}
+                        placeholder={placeHolder}
+                        onChange={this.handleChangeForm}
+                    />
                 </div>
-            );
-        }
+                {(this.state.alert !== null) &&
+                <div className="alert alert-danger" role="alert">{this.state.alert}</div>}
+            </>
+        );
     }
 }
 
