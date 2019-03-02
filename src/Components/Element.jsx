@@ -82,71 +82,67 @@ class Element extends Component {
     render() {
         let value = this.props.value;
         //Проверяем текущее состояние компонента
-        if (!this.state.edit) {
-            //Обычное состояние
-            return (
-                <div key={value.id} className="line">
-                    <div>{value.id}</div>
-                    <div>{value.name}</div>
-                    <div>{value.price}</div>
-                    <div>{value.data}</div>
+        return (
+            <>
+                {(!this.state.edit)
+                    ? <div key={value.id} className="line">
+                        <div>{value.id}</div>
+                        <div>{value.name}</div>
+                        <div>{value.price}</div>
+                        <div>{value.data}</div>
 
-                    <Button variant="warning" onClick={this.setUpdateState}>Update</Button>
-                    <Button variant="danger" onClick={this.handleShow}>Delete</Button>
+                        <Button variant="warning" onClick={this.setUpdateState}>Update</Button>
+                        <Button variant="danger" onClick={this.handleShow}>Delete</Button>
 
-                    <Modal show={this.state.showModal} onHide={this.handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Delete</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>Are you sure you want to delete this item?<br/>
-                            Id: {value.id},
-                            Name: {value.name},
-                            Price: {value.price},
-                            Data: {value.data}
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={this.handleClose}>
-                                Close
-                            </Button>
-                            <Button variant="danger" onClick={this.deleteElement}>
-                                Delete
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
-            );
-        } else {
-            return (
-                //Состояние редактирования
-                <div key={value.id} className="line">
+                        <Modal show={this.state.showModal} onHide={this.handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Delete</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Are you sure you want to delete this item?<br/>
+                                Id: {value.id},
+                                Name: {value.name},
+                                Price: {value.price},
+                                Data: {value.data}
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={this.handleClose}>
+                                    Close
+                                </Button>
+                                <Button variant="danger" onClick={this.deleteElement}>
+                                    Delete
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                    : <div key={value.id} className="line">
+                        <div>{value.id}</div>
+                        <Form
+                            plholder=''
+                            value={value.name}
+                            type='text'
+                            getElementName={this.getElementName}
+                            alerts={this.state.alerts}
+                        />
+                        <Form
+                            plholder=''
+                            value={value.price}
+                            type='number'
+                            getElementPrice={this.getElementPrice}
+                            alerts={this.state.alerts}
+                        />
+                        <div>{value.data}</div>
 
-                    <div>{value.id}</div>
-                    <Form
-                        plholder=''
-                        value={value.name}
-                        type='text'
-                        getElementName={this.getElementName}
-                        alerts={this.state.alerts}
-                    />
-                    <Form
-                        plholder=''
-                        value={value.price}
-                        type='number'
-                        getElementPrice={this.getElementPrice}
-                        alerts={this.state.alerts}
-                    />
-                    <div>{value.data}</div>
-
-                    {(this.state.name !== null && this.state.price !== null)
-                        ? <Button variant='outline-success'
-                                  onClick={this.saveUpdate}>Save</Button>
-                        : <Button variant='outline-success'
-                                  onClick={this.saveUpdate} disabled>Save</Button>
-                    }
-                    <Button variant="outline-danger" onClick={this.cancelEdit}>Cancel</Button>
-                </div>
-            );
-        }
+                        {(this.state.name !== null && this.state.price !== null)
+                            ? <Button variant='outline-success'
+                                      onClick={this.saveUpdate}>Save</Button>
+                            : <Button variant='outline-success'
+                                      onClick={this.saveUpdate} disabled>Save</Button>
+                        }
+                        <Button variant="outline-danger" onClick={this.cancelEdit}>Cancel</Button>
+                    </div>
+                }
+            </>
+        );
     }
 }
 

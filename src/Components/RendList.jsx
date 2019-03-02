@@ -31,28 +31,24 @@ class RendList extends Component {
         let term = this.state.term;
         //Функция для сортировки чисел и даты
         let sortNumber = (direction, value) => {
-            catalog.sort(function (b, a) {
-                if (value === 'data') {
-                    if (direction) {
-                        return new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
-                            new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
-                    } else {
-                        return new Date(b.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
-                            new Date(a.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
-                    }
-                } else {
-                    if (direction) {
-                        return a[value] - b[value];
-                    } else {
-                        return b[value] - a[value];
-                    }
+            catalog.sort((b, a) => {
+                let first = a;
+                let second = b;
+                if(!direction){
+                    first = b;
+                    second = a;
                 }
+                if (value === 'data')
+                    return new Date(first.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
+                        new Date(second.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+
+                    return first[value] - second[value];
             })
         };
 
         //Функция для сортировки строк
         let sortString = (direction, value) => {
-            catalog.sort(function (a, b) {
+            catalog.sort((a, b) => {
                 let
                     nameA = a[value].toLowerCase(),
                     nameB = b[value].toLowerCase();
@@ -93,7 +89,6 @@ class RendList extends Component {
                         sortData: !direction
                     };
                     break;
-
             }
 
             this.setState(obj);

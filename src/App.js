@@ -42,11 +42,7 @@ class App extends Component {
     };
 
     render() {
-        let
-            value = 'Add new product',
-            link = '/add',
-            className = 'btn btn-success add',
-            catalog = this.state.catalog;
+        let catalog = this.state.catalog;
         //Удаление элемента из массива
         if (this.state.id !== null) {
             catalog = catalog.splice(this.state.id, 1);
@@ -60,12 +56,6 @@ class App extends Component {
             this.setState({
                 newElement: null
             });
-        }
-
-        if (this.state.add) {
-            value = 'Return';
-            link = '/';
-            className = 'btn btn-primary add';
         }
 
         if (this.state.catalog !== null) {
@@ -85,7 +75,13 @@ class App extends Component {
                                         id = {catalog.length}
                             />
                         )}/>
-                        <Link to = {link} className = {className} onClick = {this.setButton}>{value}</Link>
+
+                        {(this.state.add)
+                            ? <Link to = '/' className = "btn btn-primary add"
+                                    onClick = {this.setButton}>Return</Link>
+                            : <Link to = '/add' className = "btn btn-success add"
+                                    onClick = {this.setButton}>Add new product</Link>
+                        }
                     </>
                 </Router>
             );

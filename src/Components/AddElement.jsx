@@ -25,16 +25,15 @@ class AddElement extends Component {
 
         data = dd + '.' + mm + '.' + yyyy;
 
+        this.setState({
+            data: data
+        });
+
         fetch(`./alerts.json`)
             .then(response => response.json())
             .then(json => this.setState({
                 alerts: json
             }));
-
-        this.setState({
-            data: data
-        });
-
     }
 
     getElementName = (value) => {
@@ -63,7 +62,7 @@ class AddElement extends Component {
             "price": price,
             "data": data
         };
-
+        console.log(2);
         this.props.addElement(arr);
         //Тут должен быть ajax
     };
