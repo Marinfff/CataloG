@@ -8,7 +8,8 @@ class AddElement extends Component {
         this.state = {
             data: null,
             name: null,
-            price: null
+            price: null,
+            alerts: null
         };
     }
 
@@ -19,19 +20,21 @@ class AddElement extends Component {
             mm = data.getMonth() + 1,
             yyyy = data.getFullYear();
 
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-
-        if (mm < 10) {
-            mm = '0' + mm;
-        }
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
 
         data = dd + '.' + mm + '.' + yyyy;
 
-         this.setState({
-            data : data
+        fetch(`./alerts.json`)
+            .then(response => response.json())
+            .then(json => this.setState({
+                alerts: json
+            }));
+
+        this.setState({
+            data: data
         });
+
     }
 
     getElementName = (value) => {
@@ -60,32 +63,36 @@ class AddElement extends Component {
             "price": price,
             "data": data
         };
+
+        this.props.addElement(arr);
         //Тут должен быть ajax
     };
 
     render() {
-        var buttonType = 'secondary';
-
-        if(this.state.name !== null && this.state.price){
-            buttonType = 'success';
-        }
         return (
             <>
                 <div className='form'>
                     <h2>Add new Product</h2>
-                        <Form
-                            plholder = ''
-                            value = ''
-                            type = 'text'
-                            getElementName = {this.getElementName}
-                        />
-                        <Form
-                            plholder = ''
-                            value = ''
-                            type = 'number'
-                            getElementPrice = {this.getElementPrice}
-                        />
-                    <Button variant={buttonType}>Save</Button>
+                    <Form
+                        plholder=''
+                        value=''
+                        type='text'
+                        getElementName={this.getElementName}
+                        alerts={this.state.alerts}
+                    />
+                    <Form
+                        plholder=''
+                        value=''
+                        type='number'
+                        getElementPrice={this.getElementPrice}
+                        alerts={this.state.alerts}
+                    />
+                    {(this.state.name !== null && this.state.price !== null)
+                        ? <Button variant='success'
+                                  onClick={this.saveNewElement}>Save</Button>
+                        : <Button variant='success'
+                                  onClick={this.saveNewElement} disabled>Save</Button>
+                    }
                 </div>
             </>
         );

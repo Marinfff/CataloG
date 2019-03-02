@@ -1,0 +1,16 @@
+{
+  "name": {
+    "enpty": "Empty field ! Minimum 3 characters!",
+    "format": "Name is invalid!  Minimum 3 characters! "
+  },
+  "price": {
+    "enpty": "Empty field ! Minimum 1 characters!",
+    "format": "Price is invalid! Only number !"
+  }
+}
+
+
+
+
+
+

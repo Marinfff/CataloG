@@ -1,14 +1,5 @@
 import React, {Component} from 'react';
 
-let alerts = {
-    'inValidName': <div className="alert alert-danger" role="alert">
-        Name is invalid ! Minimum 3 characters!
-    </div>,
-    'inValidPrice': <div className="alert alert-danger" role="alert">
-        Price is invalid ! Minimum 1 character! Numbers only!
-    </div>
-};
-
 class Form extends Component {
     constructor(props) {
         super(props);
@@ -17,40 +8,57 @@ class Form extends Component {
         };
     }
 
-    //Методы для валидации форм
-    handleChangeName = (e) => {
-        let value = e.target.value;
-        if (value.match("^[a-zA-Z 1-9 ., -]*$") != null && value.length >= 3) {
-            this.props.getElementName(value);
-            this.setState({
-                alert: null
-            });
-        } else {
-            this.props.getElementName(null);
-            this.setState({
-                alert: alerts.inValidName
-            });
+    formValidator = (value, type) => {
+        let alert = this.props.alerts;
+        if (type === "text") {
+            if (value.length < 3) {
+                this.props.getElementName(null);
+                this.setState({
+                    alert: alert.name.enpty
+                });
+            } else {
+                if (value.match("^[a-zA-Z 1-9 ., -]*$") != null) {
+                    this.props.getElementName(value);
+                    this.setState({
+                        alert: null
+                    });
+                } else {
+                    this.props.getElementName(null);
+                    this.setState({
+                        alert: alert.name.format
+                    });
+                }
+            }
+        } else if (type === "number") {
+            if (value.length < 1) {
+                this.props.getElementPrice(null);
+                this.setState({
+                    alert: alert.price.enpty
+                });
+            } else {
+                if (value.match("^[0-9 .]*$") != null) {
+                    this.props.getElementPrice(value);
+                    this.setState({
+                        alert: null
+                    });
+                } else {
+                    this.props.getElementPrice(null);
+                    this.setState({
+                        alert: alert.price.format
+                    });
+                }
+            }
         }
     };
 
-    handleChangePrice = (e) => {
-        let value = e.target.value;
-        if (value.match("^[0-9 .]*$") != null && value.length >= 1) {
-            this.props.getElementPrice(value);
-            this.setState({
-                alert: null
-            });
-        } else {
-            this.props.getElementPrice(null);
-            this.setState({
-                alert: alerts.inValidPrice
-            });
-        }
+    //Методы для валидации форм
+    handleChangeForm = (e) => {
+        this.formValidator(e.target.value, this.props.type);
     };
 
     render() {
         let type = this.props.type;
-        let defaultValue = this.state.value;
+        let defaultValue = this.props.value;
         let placeHolder = this.props.plholder;
 
         if (type === 'text') {
@@ -61,10 +69,11 @@ class Form extends Component {
                             <input className="form-control"
                                    defaultValue={defaultValue}
                                    placeholder={placeHolder}
-                                   onChange={this.handleChangeName}
+                                   onChange={this.handleChangeForm}
                             />
                         </div>
-                        {this.state.alert}
+                        {(this.state.alert !== null) &&
+                        <div className="alert alert-danger" role="alert">{this.state.alert}</div>}
                     </div>
                 </>
             );
@@ -75,10 +84,11 @@ class Form extends Component {
                         <input className="form-control"
                                defaultValue={defaultValue}
                                placeholder={placeHolder}
-                               onChange={this.handleChangePrice}
+                               onChange={this.handleChangeForm}
                         />
                     </div>
-                    {this.state.alert}
+                    {(this.state.alert !== null) &&
+                    <div className="alert alert-danger" role="alert">{this.state.alert}</div>}
                 </div>
             );
         }

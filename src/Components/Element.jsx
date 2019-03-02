@@ -1,17 +1,26 @@
 import React, {Component} from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import Form from "./Form";
 
 class Element extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: null,
+            price: null,
             edit: false,
-            alert: false,
-            alertType: "",
+            alerts: null,
             showModal: false
         };
+    }
+
+    componentDidMount() {
+        fetch(`./alerts.json`)
+            .then(response => response.json())
+            .then(json => this.setState({
+                alerts: json
+            }));
     }
 
 //Обработчики кликов
@@ -23,6 +32,18 @@ class Element extends Component {
         this.setState({showModal: true});
     };
 
+    getElementName = (value) => {
+        this.setState({
+            name: value
+        })
+    };
+
+    getElementPrice = (value) => {
+        this.setState({
+            price: value
+        })
+    };
+
     setUpdateState = () => {
         this.setState({
             edit: true
@@ -31,56 +52,25 @@ class Element extends Component {
 
     deleteElement = () => {
         let elementId = this.props.index;
-
-        this.setState({
-            show: false
-        });
-
         //Тут должен быть ajax )
-        this.props.getDeleteId(elementId);
+        this.props.getIdForDelete(elementId);
+        this.setState({
+            showModal: false
+        });
     };
 
     saveUpdate = () => {
         let
-            newName = this.refs.updateName.value,
-            newPrice = this.refs.updatePrice.value,
+            newName = this.state.name,
+            newPrice = this.state.price,
             value = this.props.value;
         //Проверка форм на валидность
-        if (
-            newName.match("^[a-zA-Z 1-9 ., -]*$") != null && newName.length >= 3
-            &&
-            newPrice.match("^[0-9 .]*$") != null && newPrice.length >= 1
-        ) {
+        value.name = newName;
+        value.price = newPrice;
 
-            //Тут тоже должен быть ajax )
-
-            value.name = newName;
-            value.price = newPrice;
-            //Алерт для успешной операции
-            this.setState({
-                alert: true,
-                alertType: "success",
-                edit: false
-            });
-
-            setTimeout(() => {
-                this.setState({
-                    alert: false,
-                });
-            }, 1200);
-            //Алерт для ошибки валидации
-        } else {
-            this.setState({
-                alert: true,
-                alertType: "errValidation"
-            });
-
-            setTimeout(() => {
-                this.setState({
-                    alert: false,
-                });
-            }, 1300);
-        }
+        this.setState({
+            edit: false
+        })
     };
 
     cancelEdit = () => {
@@ -90,29 +80,7 @@ class Element extends Component {
     };
 
     render() {
-        let
-            value = this.props.value,
-            alert;
-
-        let
-            success = <Alert variant="success">Saved !</Alert>,
-            error = <Alert variant="danger">Error !</Alert>,
-            inValidForm = <Alert variant="danger">Name or price is invalid! Minimum 3 characters! <br/>
-                Only number for price!</Alert>;
-        //Отрисовываем алерт в зависимости от кода ошибки
-        if (this.state.alert)
-            switch (this.state.alertType) {
-                case 'succes':
-                    alert = success;
-                    break;
-                case 'error':
-                    alert = error;
-                    break;
-                case 'errValidation':
-                    alert = inValidForm;
-                    break;
-            }
-
+        let value = this.props.value;
         //Проверяем текущее состояние компонента
         if (!this.state.edit) {
             //Обычное состояние
@@ -126,7 +94,7 @@ class Element extends Component {
                     <Button variant="warning" onClick={this.setUpdateState}>Update</Button>
                     <Button variant="danger" onClick={this.handleShow}>Delete</Button>
 
-                    <Modal show={this.state.show} onHide={this.handleClose}>
+                    <Modal show={this.state.showModal} onHide={this.handleClose}>
                         <Modal.Header closeButton>
                             <Modal.Title>Delete</Modal.Title>
                         </Modal.Header>
@@ -145,8 +113,6 @@ class Element extends Component {
                             </Button>
                         </Modal.Footer>
                     </Modal>
-
-                    {alert}
                 </div>
             );
         } else {
@@ -155,14 +121,29 @@ class Element extends Component {
                 <div key={value.id} className="line">
 
                     <div>{value.id}</div>
-                    <input className="input form-control" ref="updateName" defaultValue={value.name}/>
-                    <input className="input form-control" ref="updatePrice" defaultValue={value.price}/>
+                    <Form
+                        plholder=''
+                        value={value.name}
+                        type='text'
+                        getElementName={this.getElementName}
+                        alerts={this.state.alerts}
+                    />
+                    <Form
+                        plholder=''
+                        value={value.price}
+                        type='number'
+                        getElementPrice={this.getElementPrice}
+                        alerts={this.state.alerts}
+                    />
                     <div>{value.data}</div>
 
-                    <Button variant="outline-success" onClick={this.saveUpdate}>Save</Button>
+                    {(this.state.name !== null && this.state.price !== null)
+                        ? <Button variant='outline-success'
+                                  onClick={this.saveUpdate}>Save</Button>
+                        : <Button variant='outline-success'
+                                  onClick={this.saveUpdate} disabled>Save</Button>
+                    }
                     <Button variant="outline-danger" onClick={this.cancelEdit}>Cancel</Button>
-
-                    {alert}
                 </div>
             );
         }
