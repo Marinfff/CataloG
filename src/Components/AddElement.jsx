@@ -28,12 +28,6 @@ class AddElement extends Component {
         this.setState({
             data: data
         });
-
-        fetch(`./alerts.json`)
-            .then(response => response.json())
-            .then(json => this.setState({
-                alerts: json
-            }));
     }
 
     getElementName = (value) => {
@@ -77,14 +71,14 @@ class AddElement extends Component {
                         value=''
                         type='text'
                         getElementName={this.getElementName}
-                        alerts={this.state.alerts}
+                        alerts={this.props.alerts}
                     />
                     <Form
                         plholder=''
                         value=''
                         type='number'
                         getElementPrice={this.getElementPrice}
-                        alerts={this.state.alerts}
+                        alerts={this.props.alerts}
                     />
                     {(this.state.name !== null && this.state.price !== null)
                         ? <Button variant='success'

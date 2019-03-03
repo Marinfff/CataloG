@@ -9,7 +9,8 @@ class App extends Component {
         catalog: null,
         newElement: null,
         add: false,
-        id: null
+        id: null,
+        alerts: null
     };
 
     //Получения каталога из бд
@@ -18,7 +19,13 @@ class App extends Component {
             .then(response => response.json())
             .then(data => this.setState({
                 catalog: data
-            }))
+            }));
+
+        fetch(`./alerts.json`)
+            .then(response => response.json())
+            .then(json => this.setState({
+                alerts: json
+            }));
     }
 
     //Коллбэк для получения id удаленного элемента из RendList
@@ -64,29 +71,31 @@ class App extends Component {
                     <>
                         <Route exact path='/' render={(props) => (
                             <RendList {...props}
-                                      newElement = {this.state.newElement}
-                                      catalog = {catalog}
-                                      deleteElement = {this.deleteElement}
+                                      newElement={this.state.newElement}
+                                      catalog={catalog}
+                                      deleteElement={this.deleteElement}
+                                      alerts={this.state.alerts}
                             />
                         )}/>
                         <Route exact path='/add' render={(props) => (
                             <AddElement {...props}
-                                        addElement = {this.addElement}
-                                        id = {catalog.length}
+                                        addElement={this.addElement}
+                                        alerts={this.state.alerts}
+                                        id={catalog.length}
                             />
                         )}/>
 
                         {(this.state.add)
-                            ? <Link to = '/' className = "btn btn-primary add"
-                                    onClick = {this.setButton}>Return</Link>
-                            : <Link to = '/add' className = "btn btn-success add"
-                                    onClick = {this.setButton}>Add new product</Link>
+                            ? <Link to='/' className="btn btn-primary add"
+                                    onClick={this.setButton}>Return</Link>
+                            : <Link to='/add' className="btn btn-success add"
+                                    onClick={this.setButton}>Add new product</Link>
                         }
                     </>
                 </Router>
             );
-        }else{
-            return(
+        } else {
+            return (
                 <></>
             );
         }

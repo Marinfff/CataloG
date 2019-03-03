@@ -10,17 +10,8 @@ class Element extends Component {
             name: null,
             price: null,
             edit: false,
-            alerts: null,
             showModal: false
         };
-    }
-
-    componentDidMount() {
-        fetch(`./alerts.json`)
-            .then(response => response.json())
-            .then(json => this.setState({
-                alerts: json
-            }));
     }
 
 //Обработчики кликов
@@ -121,14 +112,14 @@ class Element extends Component {
                             value={value.name}
                             type='text'
                             getElementName={this.getElementName}
-                            alerts={this.state.alerts}
+                            alerts={this.props.alerts}
                         />
                         <Form
                             plholder=''
                             value={value.price}
                             type='number'
                             getElementPrice={this.getElementPrice}
-                            alerts={this.state.alerts}
+                            alerts={this.props.alerts}
                         />
                         <div>{value.data}</div>
 

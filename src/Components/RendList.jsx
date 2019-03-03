@@ -10,6 +10,7 @@ class RendList extends Component {
             sortName: false,
             sortPrice: false,
             sortData: false,
+            alerts: null,
             term: ''
         };
     }
@@ -34,7 +35,7 @@ class RendList extends Component {
             catalog.sort((b, a) => {
                 let first = a;
                 let second = b;
-                if(!direction){
+                if (!direction) {
                     first = b;
                     second = a;
                 }
@@ -42,7 +43,7 @@ class RendList extends Component {
                     return new Date(first.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1')) -
                         new Date(second.data.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
 
-                    return first[value] - second[value];
+                return first[value] - second[value];
             })
         };
 
@@ -110,7 +111,7 @@ class RendList extends Component {
             return (value) => {
                 return value.name.toLowerCase().includes(term.toLowerCase()) ||
                     value.price.includes(term) ||
-                    value.data.includes(term) ;
+                    value.data.includes(term);
             }
         };
 
@@ -139,6 +140,7 @@ class RendList extends Component {
                                 value={value}
                                 index={index}
                                 getIdForDelete={this.getIdForDelete}
+                                alerts={this.props.alerts}
                             />
                         );
                     })}
