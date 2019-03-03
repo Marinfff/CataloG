@@ -9,7 +9,6 @@ class AddElement extends Component {
             data: null,
             name: null,
             price: null,
-            alerts: null
         };
     }
 

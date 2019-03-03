@@ -10,7 +10,6 @@ class RendList extends Component {
             sortName: false,
             sortPrice: false,
             sortData: false,
-            alerts: null,
             term: ''
         };
     }

@@ -35,7 +35,7 @@ header {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 10px;
-    
+
 }
 
 .first div:nth-child(5){

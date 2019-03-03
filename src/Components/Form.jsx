@@ -71,7 +71,7 @@ class Form extends Component {
                     />
                 </div>
                 {(this.state.alert !== null) &&
-                <div className="alert alert-danger" role="alert">{this.state.alert}</div>}
+                        <div className="alert alert-danger" role="alert">{this.state.alert}</div>}
             </>
         );
     }
